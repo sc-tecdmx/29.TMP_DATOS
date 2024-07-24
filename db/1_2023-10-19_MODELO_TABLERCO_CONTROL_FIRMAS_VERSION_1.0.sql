@@ -361,7 +361,7 @@ CREATE TABLE `seg_usuario_estado_usuario` (
 
 CREATE TABLE `seg_usuarios` (
   `n_id_usuario` int PRIMARY KEY AUTO_INCREMENT,
-  `s_usuario` varchar(20),
+  `s_usuario` varchar(20) UNIQUE,
   `s_contrasenia` varchar(255),
   `s_desc_usuario` varchar(100),
   `s_email` varchar(256) UNIQUE,
