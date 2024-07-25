@@ -545,7 +545,7 @@ CREATE TABLE `jel_ciudadano` (
   `nombre` varchar(70),
   `apellido1` varchar(70),
   `apellido2` varchar(70),
-  `email` varchar(256),
+  `email` varchar(256) UNIQUE,
   `fh_nac` datetime,
   `sexo` varchar(1),
   `telefono` varchar(10),
