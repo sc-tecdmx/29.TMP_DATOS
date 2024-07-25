@@ -188,6 +188,7 @@ INSERT INTO seg_roles (n_id_rol, s_etiqueta_rol,s_descripcion,n_id_rol_padre,n_r
 (2,'AG','Administrador General',1,1,NULL),
 (3,'USID','USI Directorio',1,1,NULL),
 (4,'COM','Comunicación',1,1,NULL);
+(5,'CIUDADANO_JEL','Ciudadano JEL',1,1,NULL);
 
 INSERT INTO seg_cat_nivel_modulo(n_id_nivel, desc_nivel)VALUES
 (1, 'Aplicación'),
