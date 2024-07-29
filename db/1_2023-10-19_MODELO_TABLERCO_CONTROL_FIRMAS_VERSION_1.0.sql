@@ -480,11 +480,14 @@ CREATE TABLE `jel_cat_entidad_federativa_tribunal` (
 
 CREATE TABLE `jel_cat_tipo_medio` (
   `n_id_tipo_medio` int PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(100)
+  `nombre` varchar(100),
+  `codigo` varchar(100)
 );
 
 CREATE TABLE `jel_cat_autoridad_responsable` (/*En el sistema se relacionan con la entidad federativa ya que es multi tribunal, en este vale la pena hacerlo igual???*/
-  `id_autoridad_responsable` int PRIMARY KEY AUTO_INCREMENT
+  `id_autoridad_responsable` int PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100),
+  `codigo` varchar(100)
 );
 
 CREATE TABLE `jel_cat_tipo_expediente` (
