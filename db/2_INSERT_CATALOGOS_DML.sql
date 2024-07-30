@@ -1269,4 +1269,33 @@ INSERT INTO jel_cat_autoridad_responsable(id_autoridad_responsable, nombre, codi
 (1021,'Secretaría Administrativa del Instituto Electoral de la Ciudad de México y otro'),
 (1022,'Luis Alberto Mendoza Acevedo, Diputado Federal por el Distrito 15'),
 (1023,'Santiago Taboada Cortina, Titular de la Alcaldía Benito Juárez'),
-(1024,'Comisión Organizadora de la Elección de la Coordinadora o Coordinador del Pueblo de San Juan Ixtayopan, Tláhuac'),
+(1024,'Comisión Organizadora de la Elección de la Coordinadora o Coordinador del Pueblo de San Juan Ixtayopan, Tláhuac');
+
+
+INSERT INTO jel_cat_tipo_documento_electronico(n_id_tipo_documento_electronico, nombre, codigo)VALUES
+(1, 'Demanda', 'DM'),
+(2, 'Documento Original', 'DO'),
+(3, 'Documento Firmado', 'DF'),
+(4, 'Prueba', 'PR'),
+(5, 'Comprobante Representante', 'CR');
+
+
+INSERT INTO jel_cat_tipo_recepcion(n_id_tipo_recepcion, nombre, codigo)VALUES
+(1, 'Oficialía de Partes', 'OP');
+
+
+INSERT INTO jel_cat_tipo_eleccion(n_id_tipo_eleccion, nombre, codigo)VALUES
+(1, 'Municipio', 'MP');
+
+
+INSERT INTO jel_cat_involucrados(n_id_involucrados, nombre, codigo)VALUES
+(1, 'Coalición Alianza para Todos', 'CAPT');
+
+INSERT INTO jel_cat_tipo_vinculacion(n_id_tipo_vinculacion, nombre, codigo)VALUES
+(1, 'Aviso de Interposición', 'AI'),
+(2, 'Folio Electrónico', 'FE');
+
+
+INSERT INTO jel_cat_tipo_papeleta(n_id_tipo_papeleta, nombre, codigo)VALUES
+(1, 'Asunto', 'A'),
+(2, 'Promoción', 'P');

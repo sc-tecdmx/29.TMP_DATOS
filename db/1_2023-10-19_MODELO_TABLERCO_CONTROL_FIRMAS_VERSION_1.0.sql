@@ -472,6 +472,22 @@ CREATE TABLE `jel_cat_entidad_federativa` (
   `codigo` varchar(100)
 );
 
+CREATE TABLE `jel_cat_distrito` (
+  `n_id_distrito` int PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100),
+  `numero` int,
+  `codigo` varchar(100),
+  `n_id_entidad_federativa` int
+);
+
+CREATE TABLE `jel_cat_municipio` (
+  `n_id_municipio` int PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100),
+  `numero` int,
+  `codigo` varchar(100),
+  `n_id_distrito` int
+);
+
 CREATE TABLE `jel_cat_entidad_federativa_tribunal` (
   `n_id_entidad_federativa_tribunal` int PRIMARY KEY AUTO_INCREMENT,
   `nombre` varchar(100),
@@ -497,7 +513,8 @@ CREATE TABLE `jel_cat_tipo_expediente` (
 
 CREATE TABLE `jel_cat_involucrados` (
   `n_id_involucrados` int PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(100)
+  `nombre` varchar(100),
+  `codigo` varchar(100)
 );
 
 /*Aqui se almacenan:
@@ -508,12 +525,14 @@ CREATE TABLE `jel_cat_involucrados` (
 */
 CREATE TABLE `jel_cat_tipo_recepcion` (
   `n_id_tipo_recepcion` int PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(100)
+  `nombre` varchar(100),
+  `codigo` varchar(100)
 );
 
 CREATE TABLE `jel_cat_tipo_eleccion` (
   `n_id_tipo_eleccion` int PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(100)
+  `nombre` varchar(100),
+  `codigo` varchar(100)
 );
 
 /*Aqui se almacenan:
@@ -525,7 +544,8 @@ CREATE TABLE `jel_cat_tipo_eleccion` (
 */
 CREATE TABLE `jel_cat_tipo_documento_electronico` (
   `n_id_tipo_documento_electronico` int PRIMARY KEY AUTO_INCREMENT,
-  `nombre` varchar(100)
+  `nombre` varchar(100),
+  `codigo` varchar(100)
 );
 
 CREATE TABLE `jel_cat_tipo_identificacion` (
@@ -539,6 +559,19 @@ CREATE TABLE `jel_cat_tipo_solicitud` (
   `nombre` varchar(100),
   `codigo` varchar(100)
 );
+
+CREATE TABLE `jel_cat_tipo_vinculacion` (
+  `n_id_tipo_vinculacion` int PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100),
+  `codigo` varchar(100)
+);
+
+CREATE TABLE `jel_cat_tipo_papeleta` (
+  `n_id_tipo_papeleta` int PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100),
+  `codigo` varchar(100)
+);
+
 
 CREATE TABLE `jel_ciudadano` (
   `n_id_ciudadano` int PRIMARY KEY AUTO_INCREMENT,
@@ -573,12 +606,19 @@ CREATE TABLE `jel_cat_estatus_medio_impugnacion` (
   `codigo_estatus` varchar(100)
 );
 
+CREATE TABLE `jel_cat_magistrado` (
+  `n_id_magistrado` int PRIMARY KEY AUTO_INCREMENT,
+  `n_id_num_empleado` int,
+  `nombre` varchar(100)
+);
+
 
 /*Qué es el aviso de Interposición*/
 
 
 CREATE TABLE `jel_medio_impugnacion` (/*Demandas, interposición, impugnación, cual es la diferenca */
     `n_id_medio_impugnacion` int PRIMARY KEY AUTO_INCREMENT,
+    `n_id_tipo_vinculacion` int, /*1-> Folio Electrónico (JEL), 2-> Aviso de Interposición (Ventanilla) */
     /*PRESENTACIÓN DE DEMANDA a nombre propio o en representación de otra persona*/
     `b_jel_en_representacion` int(1),
     `s_jel_promovente` varchar(100),
@@ -606,7 +646,7 @@ CREATE TABLE `jel_medio_impugnacion` (/*Demandas, interposición, impugnación, 
     /*OTROS CAMPOS QUE NO APARECEN EN JEL PERO QUE SE REGISTRAN MANUALMENTE, EN EL MÓDULO DE AVISO DE INTERPOSICIÓN*/
     `clave_tribunal` varchar(100),
     `n_anio` int(4),
-    `n_id_tipo_expediente` int,
+    /*`n_id_tipo_expediente` int,*/
     `consecutivo_aviso` int,
     `consecutivo_expediente` int,
     /*Recepción*/
@@ -618,7 +658,7 @@ CREATE TABLE `jel_medio_impugnacion` (/*Demandas, interposición, impugnación, 
     /*DATOS DE REMISIÓN*/
     `cargo_remite` varchar(200),
     `numero_oficio` int,
-    `persona_suscribe` varchar(100),
+    `persona_suscribe` varchar(100),/*Quien es este???*/
     `fecha_oficio` datetime,
     `observaciones` varchar(100),
 
@@ -631,6 +671,7 @@ CREATE TABLE `jel_medio_impugnacion` (/*Demandas, interposición, impugnación, 
     `b_firmado` int(1),/*Si ya fue firmado el escrito o no, NO ENTIENDO SI LO QUE SE FIRMA ES EL DOCUMENTO DE DEMANDA O LA SOLICITUD, esto es importante porque si es el escrityo generado de demanda se debe firmar, pero si el que carga la demanda debe firmarlo, entonces ya no hay que firmar la solciitud o en caso contrario siempre se firma la solicitud*/
     /*EN caso de que se firme la solicitud entonces aplicarian los campos de abajo*/
     
+    /*Estos hay que revisarlos:*/
     `num_consecutivo` int,
     `tipo_derecho` varchar(256),
     `b_asignado`varchar(100),
@@ -650,6 +691,7 @@ CREATE TABLE `jel_expediente` (/*Antes jel_documentos*/
 `n_id_expediente` int PRIMARY KEY AUTO_INCREMENT,
 `n_id_medio_impugnacion` int,
 `n_id_tipo_documento_electronico` int,
+`formato_archivo` varchar(100),
 `s_path_documento` varchar(100),
 `d_fecha_creacion` datetime
 );
@@ -671,6 +713,39 @@ CREATE TABLE `jel_medio_impugnacion_involucrados` (
 );
 
 /*-------->END ADECUACIÓN 23 JULIO 2024*/
+
+CREATE TABLE `jel_acuerdo` (
+`n_id_acuerdo` int PRIMARY KEY AUTO_INCREMENT,
+`turno_por_cumplimiento` int(1),/* 1) True, 2) False*/
+`cumplimiento_de_requerimiento` int(1),/* 1) True, 2) False*/
+`acuerdo_de_returno` int(1),/* 1) True, 2) False*/
+`requerimiento` int(1),/* 1) True, 2) False*/
+`rescribe` int(1),/* 1) True, 2) False*/
+`acuerdo_de_turno` int(1),/* 1) True, 2) False*/
+`radica` int(1),/* 1) True, 2) False*/
+`admite` int(1)/* 1) True, 2) False*/
+);
+
+CREATE TABLE `jel_acuerdo_medio_impugnacion` (
+`n_id_acuerdo_medio_impugnacion` int PRIMARY KEY AUTO_INCREMENT,
+`n_id_acuerdo` int,
+`n_id_medio_impugnacion` int
+);
+
+
+CREATE TABLE `jel_papeleta` (
+`n_id_papeleta` int PRIMARY KEY AUTO_INCREMENT,
+`n_id_medio_impugnacion` int,
+`n_id_tipo_vinculacion` int,/*Origen: Aviso de interposición o Folio electrónico*/
+`n_id_tipo_papeleta` int
+);
+
+CREATE TABLE `jel_cat_tema` (
+`n_id_cat_tema` int PRIMARY KEY AUTO_INCREMENT,
+`nombre_tema` varchar(100),
+`n_id_cat_tema_padre` int
+);
+
 
 
 ALTER TABLE `tab_cat_tipo_documento` ADD FOREIGN KEY (`n_id_cat_area`) REFERENCES `inst_cat_areas` (`n_id_cat_area`);
@@ -864,10 +939,14 @@ ALTER TABLE `jel_impugnacion_autoridad_responsables` ADD FOREIGN KEY (`id_autori
 
 ALTER TABLE `jel_medio_impugnacion` ADD FOREIGN KEY (`n_id_entidad_federativa_tribunal`) REFERENCES `jel_cat_entidad_federativa_tribunal` (`n_id_entidad_federativa_tribunal`);
 ALTER TABLE `jel_medio_impugnacion` ADD FOREIGN KEY (`n_id_tipo_medio`) REFERENCES `jel_cat_tipo_medio` (`n_id_tipo_medio`);
-ALTER TABLE `jel_medio_impugnacion` ADD FOREIGN KEY (`n_id_tipo_expediente`) REFERENCES `jel_cat_tipo_expediente` (`n_id_tipo_expediente`);
+/*ALTER TABLE `jel_medio_impugnacion` ADD FOREIGN KEY (`n_id_tipo_expediente`) REFERENCES `jel_cat_tipo_expediente` (`n_id_tipo_expediente`);*/
 ALTER TABLE `jel_medio_impugnacion` ADD FOREIGN KEY (`n_id_tipo_recepcion`) REFERENCES `jel_cat_tipo_recepcion` (`n_id_tipo_recepcion`);
 ALTER TABLE `jel_medio_impugnacion` ADD FOREIGN KEY (`n_id_tipo_eleccion`) REFERENCES `jel_cat_tipo_eleccion` (`n_id_tipo_eleccion`);
 ALTER TABLE `jel_medio_impugnacion` ADD FOREIGN KEY (`n_id_estatus_medio_impugnacion`) REFERENCES `jel_cat_estatus_medio_impugnacion` (`n_id_estatus_medio_impugnacion`);
+ALTER TABLE `jel_medio_impugnacion` ADD FOREIGN KEY (`n_id_tipo_vinculacion`) REFERENCES `jel_cat_tipo_vinculacion` (`n_id_tipo_vinculacion`);
+
+
+
 
 ALTER TABLE `jel_medio_impugnacion_involucrados` ADD FOREIGN KEY (`n_id_medio_impugnacion`) REFERENCES `jel_medio_impugnacion` (`n_id_medio_impugnacion`);
 ALTER TABLE `jel_medio_impugnacion_involucrados` ADD FOREIGN KEY (`n_id_involucrados`) REFERENCES `jel_cat_involucrados` (`n_id_involucrados`);
@@ -875,6 +954,17 @@ ALTER TABLE `jel_medio_impugnacion_involucrados` ADD FOREIGN KEY (`n_id_involucr
 ALTER TABLE `jel_expediente` ADD FOREIGN KEY (`n_id_medio_impugnacion`) REFERENCES `jel_medio_impugnacion` (`n_id_medio_impugnacion`);
 ALTER TABLE `jel_expediente` ADD FOREIGN KEY (`n_id_tipo_documento_electronico`) REFERENCES `jel_cat_tipo_documento_electronico` (`n_id_tipo_documento_electronico`);
 
+ALTER TABLE `jel_papeleta` ADD FOREIGN KEY (`n_id_medio_impugnacion`) REFERENCES `jel_medio_impugnacion` (`n_id_medio_impugnacion`);
+ALTER TABLE `jel_papeleta` ADD FOREIGN KEY (`n_id_tipo_vinculacion`) REFERENCES `jel_cat_tipo_vinculacion` (`n_id_tipo_vinculacion`);
+ALTER TABLE `jel_papeleta` ADD FOREIGN KEY (`n_id_tipo_papeleta`) REFERENCES `jel_cat_tipo_papeleta` (`n_id_tipo_papeleta`);
+
+ALTER TABLE `jel_cat_municipio` ADD FOREIGN KEY (`n_id_distrito`) REFERENCES `jel_cat_distrito` (`n_id_distrito`);
+ALTER TABLE `jel_cat_distrito` ADD FOREIGN KEY (`n_id_entidad_federativa`) REFERENCES `jel_cat_entidad_federativa` (`n_id_entidad_federativa`);
+ 
+ALTER TABLE `jel_acuerdo_medio_impugnacion` ADD FOREIGN KEY (`n_id_acuerdo`) REFERENCES `jel_acuerdo` (`n_id_acuerdo`);
+ALTER TABLE `jel_acuerdo_medio_impugnacion` ADD FOREIGN KEY (`n_id_medio_impugnacion`) REFERENCES `jel_medio_impugnacion` (`n_id_medio_impugnacion`);
+
+ALTER TABLE `jel_cat_tema` ADD FOREIGN KEY (`n_id_cat_tema_padre`) REFERENCES `jel_cat_tema` (`n_id_cat_tema`);
 
 
 /*-------->END ADECUACIÓN 23 JULIO 2024*/

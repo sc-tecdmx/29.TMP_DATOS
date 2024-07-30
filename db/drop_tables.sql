@@ -76,4 +76,14 @@ DROP TABLE jel_expediente;
 DROP TABLE jel_impugnacion_autoridad_responsables;
 DROP TABLE jel_medio_impugnacion_involucrados;
 
+DROP TABLE jel_acuerdo;
+DROP TABLE jel_acuerdo_medio_impugnacion;
+DROP TABLE jel_cat_distrito;
+DROP TABLE jel_cat_municipio;
+DROP TABLE jel_cat_tema;
+DROP TABLE jel_cat_tipo_papeleta;
+DROP TABLE jel_cat_tipo_vinculacion;
+DROP TABLE jel_papeleta;
+DROP TABLE jel_cat_magistrado;
+
 SET FOREIGN_KEY_CHECKS=1;
