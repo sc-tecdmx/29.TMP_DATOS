@@ -747,6 +747,32 @@ CREATE TABLE `jel_cat_tema` (
 );
 
 
+CREATE TABLE `jel_notificacion` (
+`n_id_notificacion` int PRIMARY KEY AUTO_INCREMENT,
+`n_id_medio_impugnacion` int 
+);
+
+CREATE TABLE `jel_promocion` (
+`n_id_promocion` int PRIMARY KEY AUTO_INCREMENT,
+`n_id_medio_impugnacion` int 
+);
+
+
+CREATE TABLE `jel_requerimientos_cumplimiento` (
+`n_id_requerimientos_cumplimiento` int PRIMARY KEY AUTO_INCREMENT
+);
+
+
+CREATE TABLE `jel_resolucion` (
+`n_id_resolucion` int PRIMARY KEY AUTO_INCREMENT,
+`n_id_medio_impugnacion` int 
+);
+
+CREATE TABLE `jel_voto` (
+`n_id_voto` int PRIMARY KEY AUTO_INCREMENT,
+`n_id_resolucion` int
+);
+
 
 ALTER TABLE `tab_cat_tipo_documento` ADD FOREIGN KEY (`n_id_cat_area`) REFERENCES `inst_cat_areas` (`n_id_cat_area`);
 
@@ -968,3 +994,9 @@ ALTER TABLE `jel_cat_tema` ADD FOREIGN KEY (`n_id_cat_tema_padre`) REFERENCES `j
 
 
 /*-------->END ADECUACIÓN 23 JULIO 2024*/
+ALTER TABLE `jel_notificacion` ADD FOREIGN KEY (`n_id_medio_impugnacion`) REFERENCES `jel_medio_impugnacion` (`n_id_medio_impugnacion`);
+ALTER TABLE `jel_promocion` ADD FOREIGN KEY (`n_id_medio_impugnacion`) REFERENCES `jel_medio_impugnacion` (`n_id_medio_impugnacion`);
+
+ALTER TABLE `jel_resolucion` ADD FOREIGN KEY (`n_id_medio_impugnacion`) REFERENCES `jel_medio_impugnacion` (`n_id_medio_impugnacion`);
+
+ALTER TABLE `jel_voto` ADD FOREIGN KEY (`n_id_resolucion`) REFERENCES `jel_resolucion` (`n_id_resolucion`);
