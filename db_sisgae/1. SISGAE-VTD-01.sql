@@ -29,13 +29,13 @@ CREATE TABLE `ssg_cfg_params` (
 );
 
 CREATE TABLE `ssg_cat_tipo_asuntos` (
-  `s_cve_tipo_asunto` varchar(10) PRIMARY KEY COMMENT 'JEL, JLDC,...',
-  `s_tipo_asunto` varchar(100)
+  `s_cve_tipo_asunto` varchar(20) PRIMARY KEY COMMENT 'JEL, JLDC,...',
+  `s_tipo_asunto` varchar(255)
 );
 
 CREATE TABLE `inst_cat_sexo` (
   `n_id_sexo` int(1) AUTO_INCREMENT COMMENT 'Usar los sexos del catálog de SISGA-E TE',
-  `s_sexo` varchar(20) COMMENT 'Incluir No aplica,...',
+  `s_sexo` varchar(25) COMMENT 'Incluir No aplica,...',
   PRIMARY KEY (`n_id_sexo`, `s_sexo`)
 );
 
