@@ -116,7 +116,7 @@ CREATE TABLE `ssg_cat_areas_turnables` (
   PRIMARY KEY (`n_id_cat_area`, `n_id_num_empleado`)
 );
 
-CREATE TABLE `ssg_cat_domicilios` (
+CREATE TABLE `ssg_cat_domicilios` ( /*Sería pertinente cambiar el nombre a domicilios_guardados, ya que no es un catálogo como tal*/
   `n_id_domicilio` int PRIMARY KEY AUTO_INCREMENT,
   `s_estado` varchar(50),
   `s_municipio` varchar(50),
@@ -146,12 +146,11 @@ CREATE TABLE `ssg_medio_impugnacion` (
   `n_id_via_recepcion` int,
   `n_id_domicilio` int,
   `consecutivo_aviso` int,
-  `n_id_tipo_eleccion` int,
+  `n_id_tipo_eleccion` int,/*Falta agregar la llave foranea*/
   `cargo_remite` varchar(200),
   `numero_oficio` int,
   `persona_suscribe` varchar(100),
-  `fecha_oficio` datetime,
-  `observaciones` varchar(100)
+  `fecha_oficio` datetime
 );
 
 CREATE TABLE `eel_cat_tipo_documento` (
@@ -176,7 +175,7 @@ CREATE TABLE `eel_documentos` (
   `d_fecha_creacion` timestamp
 );
 
-CREATE UNIQUE INDEX `idx_s_cve_tribunal_unique` ON `ssg_medio_impugnacion` (`s_cve_tribunal`);
+CREATE UNIQUE INDEX `idx_s_cve_tribunal_unique` ON `ssg_cat_tribunal` (`s_id_cve_tribunal`);
 
 CREATE UNIQUE INDEX `idx_s_cve_tipo_asunto_unique` ON `ssg_medio_impugnacion` (`s_cve_tipo_asunto`);
 

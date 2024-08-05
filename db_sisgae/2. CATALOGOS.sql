@@ -51,6 +51,15 @@ INSERT INTO ssg_cat_via_recepcion(d_id_via_recepcion, s_via_recepcion) VALUES
 (2, 'Ventanilla'),
 (3, 'Correo Electrónico');
 
+/*INSERCIONES TENPORALES*/
+INSERT INTO inst_empleados(n_id_num_empleado) VALUES
+(1);
+
+INSERT INTO ssg_cat_domicilios(n_id_domicilio, s_estado, s_municipio, s_colonia, s_codigo_postal, n_id_activo) VALUES
+(1, 'Ciudad de México', 'Cuauhtemoc', 'Obrera', '5300', 1);
+
+/*END*/
+
 
 INSERT INTO ssg_cat_autoridades_responsables(n_id_autoridad, s_autoridad)VALUES
 (1,'Delegación Tláhuac y otro'),
