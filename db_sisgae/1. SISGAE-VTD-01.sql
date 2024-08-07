@@ -1,3 +1,70 @@
+CREATE TABLE `seg_usuarios` (
+  `n_id_usuario` int PRIMARY KEY AUTO_INCREMENT,
+  `s_usuario` varchar(20) UNIQUE,
+  `s_contrasenia` varchar(255),
+  `s_desc_usuario` varchar(100),
+  `s_email` varchar(256) UNIQUE,
+  `n_id_estado_usuario` int,
+  `s_token` varchar(255)
+);
+
+CREATE TABLE `jel_ciudadano` (
+  `n_id_ciudadano` int PRIMARY KEY AUTO_INCREMENT,
+  `n_id_usuario` int,
+  `s_curp` varchar(20),
+  `s_rfc` varchar(12),
+  `nombre` varchar(70),
+  `apellido1` varchar(70),
+  `apellido2` varchar(70),
+  `email` varchar(256) UNIQUE,
+  `fh_nac` datetime,
+  `sexo` varchar(1),
+  `telefono` varchar(10),
+  `calle_numero` varchar(100),
+  `colonia` varchar(256),
+  `cp` varchar(256),
+  `n_id_entidad_federativa` int,
+  `ciudad` varchar(256),
+  `n_id_tipo_identificacion` int(2),
+  `n_id_tipo_solicitud` int(2),
+  `institucion` varchar(256),
+  `aceptacion_terminos_uso` int(1)
+);
+
+CREATE TABLE `jel_cat_tipo_identificacion` (
+  `n_id_tipo_identificacion` int PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100),
+  `codigo` varchar(100)
+);
+
+CREATE TABLE `jel_cat_tipo_solicitud` (
+  `n_id_tipo_solicitud` int PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100),
+  `codigo` varchar(100)
+);
+
+CREATE TABLE `jel_cat_entidad_federativa` (
+  `n_id_entidad_federativa` int PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100),
+  `codigo` varchar(100)
+);
+
+CREATE TABLE `jel_cat_distrito` (
+  `n_id_distrito` int PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100),
+  `numero` int,
+  `codigo` varchar(100),
+  `n_id_entidad_federativa` int
+);
+
+CREATE TABLE `jel_cat_municipio` (
+  `n_id_municipio` int PRIMARY KEY AUTO_INCREMENT,
+  `nombre` varchar(100),
+  `numero` int,
+  `codigo` varchar(100),
+  `n_id_distrito` int
+);
+
 CREATE TABLE `jel_demanda` (
   `n_id_demanda` int PRIMARY KEY AUTO_INCREMENT,
   `b_jel_en_representacion` int(1) COMMENT 'Es en representacion de alguien mas',
@@ -236,3 +303,14 @@ ALTER TABLE `eel_documentos` ADD FOREIGN KEY (`n_id_demanda`) REFERENCES `ssg_me
 ALTER TABLE `eel_documentos` ADD FOREIGN KEY (`n_id_medio_impugnacion`) REFERENCES `ssg_medio_impugnacion` (`n_id_medio_impugnacion`);
 
 ALTER TABLE `eel_documentos` ADD FOREIGN KEY (`n_id_tipo_documento`) REFERENCES `eel_cat_tipo_documento` (`n_id_tipo_documento`);
+
+
+ALTER TABLE `jel_ciudadano` ADD FOREIGN KEY (`n_id_usuario`) REFERENCES `seg_usuarios` (`n_id_usuario`);
+ALTER TABLE `jel_ciudadano` ADD FOREIGN KEY (`n_id_entidad_federativa`) REFERENCES `jel_cat_entidad_federativa` (`n_id_entidad_federativa`);
+ALTER TABLE `jel_ciudadano` ADD FOREIGN KEY (`n_id_tipo_identificacion`) REFERENCES `jel_cat_tipo_identificacion` (`n_id_tipo_identificacion`);
+ALTER TABLE `jel_ciudadano` ADD FOREIGN KEY (`n_id_tipo_solicitud`) REFERENCES `jel_cat_tipo_solicitud` (`n_id_tipo_solicitud`);
+
+ALTER TABLE `jel_cat_municipio` ADD FOREIGN KEY (`n_id_distrito`) REFERENCES `jel_cat_distrito` (`n_id_distrito`);
+
+ALTER TABLE `jel_cat_distrito` ADD FOREIGN KEY (`n_id_entidad_federativa`) REFERENCES `jel_cat_entidad_federativa` (`n_id_entidad_federativa`);
+ 

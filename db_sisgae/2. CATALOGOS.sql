@@ -51,6 +51,20 @@ INSERT INTO ssg_cat_via_recepcion(d_id_via_recepcion, s_via_recepcion) VALUES
 (2, 'Ventanilla'),
 (3, 'Correo Electrónico');
 
+
+INSERT INTO jel_cat_entidad_federativa(n_id_entidad_federativa, nombre, codigo)VALUES
+(1, 'Ciudad de México', 'CDMX'),
+(2, 'Veracruz', 'VER');
+
+INSERT INTO jel_cat_tipo_solicitud(n_id_tipo_solicitud, nombre, codigo)VALUES
+(1, 'Propio Derecho', 'PRDR'),
+(2, 'Funcionario', 'FUNC');
+
+
+
+
+
+
 /*INSERCIONES TENPORALES*/
 INSERT INTO inst_empleados(n_id_num_empleado) VALUES
 (1);
